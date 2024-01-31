@@ -7,8 +7,8 @@ function isObject(val) {
     return val instanceof Object; 
 }
 
-function calcPercent(sValue, sMax){
-    var result = sValue / sMax * 100;
+function calcPercent(sValue, sMin, sMax){
+    var result = sValue / (sMax - sMin) * 100;
     result = Math.trunc(result);
     if(result >= 75) {
         return result - 1;
@@ -175,6 +175,7 @@ class HatcGaugeCard extends LitElement {
                 g['friendlyname'] = (typeof hGauge['friendly_name'] !== 'undefined') ? hGauge['friendly_name'] : heTitle;
                 g['unitofmeasurement'] = (typeof hGauge['unit_of_measurement'] !== 'undefined') ? hGauge['unit_of_measurement'] : heUnitOfMeasurement;
                 g['maxvalue'] = (typeof hGauge['max_value'] !== 'undefined') ? hGauge['max_value'] : '100';
+                g['minvalue'] = (typeof hGauge['min_value'] !== 'undefined') ? hGauge['min_value'] : '0';
 
                 g['state'] = (typeof hGauge['state'] !== 'undefined') ? hGauge['state'] : true;
                 console.log("heIcon", heIcon);
@@ -219,6 +220,7 @@ class HatcGaugeCard extends LitElement {
                 g['friendlyname'] = heTitle;
                 g['unitofmeasurement'] = heUnitOfMeasurement;
                 g['maxvalue'] = '100';
+                g['minvalue'] = '0';
                 g['state'] = true;
                 g['icon'] = (heIcon !== '' && heIcon !== false && heIcon !== 'hide') ? heIcon : icon;
 
@@ -252,7 +254,7 @@ class HatcGaugeCard extends LitElement {
             var gStateHTML =  (g.state !== '' && g.state !== false && g.state !== 'hide') ? html`${hE.heState}${hE.heUnitOfMeasurement}` : '';
             var gIconHTML = (g.icon !== '' && g.icon !== false && g.icon !== 'hide') ? html`<ha-icon style="--mdc-icon-size: ${g.iconsize}; color:${g.iconcolor};" .icon="${g.icon}"></ha-icon>` : '';
 
-            var percent = calcPercent(hE.heState, g.maxvalue);
+            var percent = calcPercent(hE.heState, g.minvalue, g.maxvalue);
 
             var gaugeHTML = html`
                 <svg viewBox="0 0 36 36" style="max-width: 100%; max-height: 100%;">
