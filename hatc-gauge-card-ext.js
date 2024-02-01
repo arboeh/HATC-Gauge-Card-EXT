@@ -264,6 +264,7 @@ class HatcGaugeCardExt extends LitElement {
                 <svg viewBox="0 0 36 36" style="max-width: 100%; max-height: 100%; ${transform}">
                     <path style="fill: none; stroke: #343434; stroke-width: 2.0;"
                           d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <rect x="0" y="0" width="1" height="4" fill="#343434" transform ="rotate(180 9.250 1.5)" />
                     <path style="stroke: ${hE.hePathStrokeColor}; fill: none; stroke-width: 2.8; stroke-linecap: round; animation: progress 1s ease-out forwards;"
                           stroke-dasharray="${percent}, 100"
                           d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
