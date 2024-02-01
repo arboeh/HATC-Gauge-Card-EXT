@@ -10,9 +10,9 @@ function isObject(val) {
 function calcPercent(sValue, sMin, sMax){
 	var result;
 	if (sValue >= 0) {
-		result = sValue / sMax * 100;
+	    result = sValue / sMax * 100;
 	} else {
-		result = sValue / sMin * 100;
+	    result = sValue / sMin * 100;
 	}
     result = Math.trunc(result);
     if (result >= 75) {
@@ -362,14 +362,14 @@ class HatcGaugeCardExt extends LitElement {
 
     static get styles() {
         return css`
-            :root, .HatcGaugeCard *{
+            :root, .HatcGaugeCardExt *{
                 --mdc-icon-size: 16px;   
                 --card-padding: 8px;
             }
-            .HatcGaugeCard .box{
+            .HatcGaugeCardExt .box{
                 padding: var(--card-padding);
             }
-            .HatcGaugeCard .box div.name{
+            .HatcGaugeCardExt .box div.name{
                 color: var(--secondary-text-color);
                 line-height: 40px;
                 font-weight: 500;
@@ -379,7 +379,7 @@ class HatcGaugeCardExt extends LitElement {
                 text-overflow: ellipsis;
             }
 
-            .HatcGaugeCard .box .header{
+            .HatcGaugeCardExt .box .header{
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
@@ -387,10 +387,10 @@ class HatcGaugeCardExt extends LitElement {
                 justify-content: flex-start;
                 align-items: center;
             }
-            .HatcGaugeCard .box .entities{
+            .HatcGaugeCardExt .box .entities{
                 position: relative;
             }
-            .HatcGaugeCard .box .entities .outer .inner{
+            .HatcGaugeCardExt .box .entities .outer .inner{
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -402,7 +402,7 @@ class HatcGaugeCardExt extends LitElement {
                 left: 0;
                 font-size: 22px;
             }
-            .HatcGaugeCard .box .entities svg{
+            .HatcGaugeCardExt .box .entities svg{
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
