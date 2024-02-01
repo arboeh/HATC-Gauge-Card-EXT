@@ -4,16 +4,16 @@ var html = LitElement.prototype.html;
 var css = LitElement.prototype.css;
 
 function isObject(val) {
-    return val instanceof Object; 
+    return val instanceof Object;
 }
 
-function calcPercent(sValue, sMin, sMax){
-	var result;
-	if (sValue >= 0) {
-	    result = sValue / sMax * 100;
-	} else {
-	    result = sValue / sMin * 100;
-	}
+function calcPercent(sValue, sMin, sMax) {
+    var result;
+    if (sValue >= 0) {
+        result = sValue / sMax * 100;
+    } else {
+        result = sValue / sMin * 100;
+    }
     result = Math.trunc(result);
     if (result >= 75) {
         return result - 1;
@@ -21,8 +21,8 @@ function calcPercent(sValue, sMin, sMax){
     return result;
 }
 
-function calcStatePercent(sValue, sMax){
-    if(isNaN(sValue)){
+function calcStatePercent(sValue, sMax) {
+    if (isNaN(sValue)) {
         return '';
     }
     var result = sValue / sMax * 100;
@@ -31,18 +31,18 @@ function calcStatePercent(sValue, sMax){
 }
 
 function makeid(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
+    for (var i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
 }
 
-function handleClick(node, hass, config, entityId){
+function handleClick(node, hass, config, entityId) {
     let e;
-    if (!config){
+    if (!config) {
         return;
     }
 
@@ -103,21 +103,21 @@ class HatcGaugeCardExt extends LitElement {
     // update your content.
     render() {
         const hassEntity = this.hass.states[this.config.entity];
-        if(hassEntity){
+        if (hassEntity) {
             var showTitleEntity = true;
-            var showStateEntity = true; 
-            var showIconEntity = true; 
+            var showStateEntity = true;
+            var showIconEntity = true;
             var showUnitOfMeasurmentEntity = true;
 
             var icon;
             var textstateColor;
 
-            if(typeof hassEntity.attributes.icon !== 'undefined'){
+            if (typeof hassEntity.attributes.icon !== 'undefined') {
                 icon = hassEntity.attributes.icon;
-            }else{
+            } else {
                 // icon par défaut selon device_class si l'attribut icon est vide
-                if(typeof hassEntity.attributes.device_class !== 'undefined'){
-                    switch(hassEntity.attributes.device_class){
+                if (typeof hassEntity.attributes.device_class !== 'undefined') {
+                    switch (hassEntity.attributes.device_class) {
                         case 'power':
                             icon = 'mdi:flash';
                             break;
@@ -125,30 +125,30 @@ class HatcGaugeCardExt extends LitElement {
                             icon = 'mdi:thermometer';
                             break;
                     }
-                }else{
+                } else {
                     // icon par défaut selon le prefix si l'attribut et device_class est vide
-                    if(hassEntity.entity_id.startsWith('light')){
+                    if (hassEntity.entity_id.startsWith('light')) {
                         icon = 'mdi:lightbulb';
                     }
                 }
             }
             // Card config
             var c = {}; var cCard = (typeof this.config.card !== 'undefined') ? this.config.card : '';
-            if(isObject(cCard)){
+            if (isObject(cCard)) {
                 c['height'] = (typeof cCard['height'] !== 'undefined') ? "height:" + cCard['height'] + "; " : '';
             }
 
             // Title config
             var h = {}; var hTitle = (typeof this.config.title !== 'undefined') ? this.config.title : hassEntity.attributes.friendly_name;
-            if(isObject(hTitle)){
+            if (isObject(hTitle)) {
                 h['fontsize'] = (typeof hTitle['font-size'] !== 'undefined') ? "--mdc-icon-size:" + hTitle['font-size'] + "; font-size:" + hTitle['font-size'] + "; " : '';
 
-                if(typeof hTitle['text-align'] !== 'undefined'){
-                    if(hTitle['text-align'] == 'left'){
+                if (typeof hTitle['text-align'] !== 'undefined') {
+                    if (hTitle['text-align'] == 'left') {
                         h['textalign'] = "justify-content: flex-start";
-                    }else if(hTitle['text-align'] == 'right'){
+                    } else if (hTitle['text-align'] == 'right') {
                         h['textalign'] = "justify-content: flex-end";
-                    }else{
+                    } else {
                         h['textalign'] = "justify-content: center";
                     }
                 }
@@ -158,9 +158,9 @@ class HatcGaugeCardExt extends LitElement {
 
                 h['name'] = (typeof hTitle.name !== 'undefined') ? hTitle.name : hassEntity.attributes.friendly_name;
                 h['icon'] = (typeof hTitle.icon !== 'undefined') ? hTitle.icon : icon;
-            }else{
+            } else {
                 h['name'] = hTitle;
-                if(hTitle === '' || hTitle === false || hTitle === 'hide'){
+                if (hTitle === '' || hTitle === false || hTitle === 'hide') {
                     h['icon'] = hTitle;
                 }
             }
@@ -172,7 +172,7 @@ class HatcGaugeCardExt extends LitElement {
 
             // Gauge config
             var g = {}; var hGauge = (typeof this.config.gauge !== 'undefined') ? this.config.gauge : '';
-            if(isObject(hGauge)){
+            if (isObject(hGauge)) {
                 g['textstatecolor'] = (typeof hGauge['text-color'] !== 'undefined') ? hGauge['text-color'] : '';
                 g['iconcolor'] = (typeof hGauge['icon-color'] !== 'undefined') ? hGauge['icon-color'] : g.textstateColor;
                 g['fontsize'] = (typeof hGauge['font-size'] !== 'undefined') ? hGauge['font-size'] : '22px';
@@ -187,37 +187,37 @@ class HatcGaugeCardExt extends LitElement {
                 g['icon'] = (typeof hGauge['icon'] !== 'undefined') ? hGauge['icon'] : (heIcon !== '' && heIcon !== false && heIcon !== 'hide') ? heIcon : icon;
 
                 // Severity config
-                if(typeof this.config.gauge.severity !== 'undefined'){
+                if (typeof this.config.gauge.severity !== 'undefined') {
                     this.config.gauge.severity.map(s => {
-                        if(typeof s.form === 'undefined' && typeof s.to === 'undefined' && typeof s.color !== 'undefined'){
+                        if (typeof s.form === 'undefined' && typeof s.to === 'undefined' && typeof s.color !== 'undefined') {
                             textstateColor = s.color;
-                            if(typeof s.icon !== 'undefined'){
+                            if (typeof s.icon !== 'undefined') {
                                 g.icon = s.icon;
                             }
                         }
-                        if(parseFloat(heState) >= s.from && parseFloat(heState) <= s.to){
+                        if (parseFloat(heState) >= s.from && parseFloat(heState) <= s.to) {
                             textstateColor = s.color;
-                            if(typeof s.icon !== 'undefined'){
+                            if (typeof s.icon !== 'undefined') {
                                 g.icon = s.icon;
                             }
                         }
                     });
-                    if(g['textstatecolor'] == "severity" || g['textstatecolor'] == ""){
+                    if (g['textstatecolor'] == "severity" || g['textstatecolor'] == "") {
                         g['textstatecolor'] = textstateColor;
                     }
-                    if(h.iconcolor == "severity"){
+                    if (h.iconcolor == "severity") {
                         h.iconcolor = textstateColor;
                     }
-                    if(h.color == "severity"){
+                    if (h.color == "severity") {
                         h.color = textstateColor;
                     }
-                    if(h.icon == "severity"){
+                    if (h.icon == "severity") {
                         heIcon = g.icon;
                     }
-                }else{
-                    textstateColor= 'white';
+                } else {
+                    textstateColor = 'white';
                 }
-            }else{
+            } else {
                 g['textstatecolor'] = '';
                 g['iconcolor'] = '';
                 g['fontsize'] = '22px';
@@ -229,14 +229,14 @@ class HatcGaugeCardExt extends LitElement {
                 g['state'] = true;
                 g['icon'] = (heIcon !== '' && heIcon !== false && heIcon !== 'hide') ? heIcon : icon;
 
-                textstateColor= 'white';
+                textstateColor = 'white';
             }
 
             var heTextStateColor = g['textstatecolor'];
             var hePathStrokeColor = textstateColor;
 
-            if(hassEntity.entity_id.startsWith('light')){
-                hePathStrokeColor = heTextStateColor = 'rgb('+hassEntity.attributes.rgb_color+')';
+            if (hassEntity.entity_id.startsWith('light')) {
+                hePathStrokeColor = heTextStateColor = 'rgb(' + hassEntity.attributes.rgb_color + ')';
             }
 
             var uID = makeid(2);
@@ -247,19 +247,19 @@ class HatcGaugeCardExt extends LitElement {
                 "heState": heState,
                 "heUnitOfMeasurement": (g.unitofmeasurement !== '' && g.unitofmeasurement !== false && g.unitofmeasurement !== 'hide') ? g.unitofmeasurement : '',
                 "heIcon": heIcon,
-                "hePathStrokeColor" : hePathStrokeColor,
-                "heTextStateColor" : heTextStateColor,
+                "hePathStrokeColor": hePathStrokeColor,
+                "heTextStateColor": heTextStateColor,
             }
 
             var hIconHTML = (hE.heIcon !== '' && hE.heIcon !== false && hE.heIcon !== 'hide') ? html`<ha-icon style="${h.fontsize} color:${h.iconcolor};" .icon="${hE.heIcon}"></ha-icon>` : '';
             var hNameHTML = (h.name !== '' && h.name !== false && h.name !== 'hide') ? html`<div style="${h.fontsize} color:${h.color};" class="name">${h.name}</div>` : '';
             var hEntitiesHeight = (h.name !== '' && h.name !== false && h.name !== 'hide') ? 'calc(100% - 40px)' : '100%';
-            var gStateHTML =  (g.state !== '' && g.state !== false && g.state !== 'hide') ? html`${hE.heState}${hE.heUnitOfMeasurement}` : '';
+            var gStateHTML = (g.state !== '' && g.state !== false && g.state !== 'hide') ? html`${hE.heState}${hE.heUnitOfMeasurement}` : '';
             var gIconHTML = (g.icon !== '' && g.icon !== false && g.icon !== 'hide') ? html`<ha-icon style="--mdc-icon-size: ${g.iconsize}; color:${g.iconcolor};" .icon="${g.icon}"></ha-icon>` : '';
 
             var percent = calcPercent(hE.heState, g.minvalue, g.maxvalue);
             var transform = hE.heState < 0 ? "transform: rotateY(180deg);" : "";
-            
+
             var gaugeHTML = html`
                 <svg viewBox="0 0 36 36" style="max-width: 100%; max-height: 100%; ${transform}">
                     <path style="fill: none; stroke: #343434; stroke-width: 2.0;"
@@ -331,10 +331,10 @@ class HatcGaugeCardExt extends LitElement {
         if (this.config.entity) {
             if (typeof this.config.tap_action === 'undefined') {
                 tap_action = {
-                    action: "more-info"  
+                    action: "more-info"
                 }
-            }else{
-                if(typeof this.config.tap_action.service === 'undefined'){
+            } else {
+                if (typeof this.config.tap_action.service === 'undefined') {
                     tap_action = {
                         service: "homeassistant",
                         ...tap_action
