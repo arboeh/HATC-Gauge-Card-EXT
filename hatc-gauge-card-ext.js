@@ -8,9 +8,14 @@ function isObject(val) {
 }
 
 function calcPercent(sValue, sMin, sMax){
-    var result = sValue / (sMax - sMin) * 100;
+	var result;
+	if (sValue >= 0) {
+		result = sValue / sMax * 100;
+	} else {
+		result = sValue / sMin * 100;
+	}
     result = Math.trunc(result);
-    if(result >= 75) {
+    if (result >= 75) {
         return result - 1;
     }
     return result;
@@ -78,7 +83,7 @@ function handleClick(node, hass, config, entityId){
     }
 }
 
-class HatcGaugeCard extends LitElement {
+class HatcGaugeCardExt extends LitElement {
     static get properties() {
         return {
             hass: {},
@@ -246,8 +251,6 @@ class HatcGaugeCard extends LitElement {
                 "heTextStateColor" : heTextStateColor,
             }
 
-
-
             var hIconHTML = (hE.heIcon !== '' && hE.heIcon !== false && hE.heIcon !== 'hide') ? html`<ha-icon style="${h.fontsize} color:${h.iconcolor};" .icon="${hE.heIcon}"></ha-icon>` : '';
             var hNameHTML = (h.name !== '' && h.name !== false && h.name !== 'hide') ? html`<div style="${h.fontsize} color:${h.color};" class="name">${h.name}</div>` : '';
             var hEntitiesHeight = (h.name !== '' && h.name !== false && h.name !== 'hide') ? 'calc(100% - 40px)' : '100%';
@@ -255,9 +258,10 @@ class HatcGaugeCard extends LitElement {
             var gIconHTML = (g.icon !== '' && g.icon !== false && g.icon !== 'hide') ? html`<ha-icon style="--mdc-icon-size: ${g.iconsize}; color:${g.iconcolor};" .icon="${g.icon}"></ha-icon>` : '';
 
             var percent = calcPercent(hE.heState, g.minvalue, g.maxvalue);
-
+            var transform = hE.heState < 0 ? "transform: rotateY(180deg);" : "";
+            
             var gaugeHTML = html`
-                <svg viewBox="0 0 36 36" style="max-width: 100%; max-height: 100%;">
+                <svg viewBox="0 0 36 36" style="max-width: 100%; max-height: 100%; ${transform}">
                     <path style="fill: none; stroke: #343434; stroke-width: 2.0;"
                           d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                     <path style="stroke: ${hE.hePathStrokeColor}; fill: none; stroke-width: 2.8; stroke-linecap: round; animation: progress 1s ease-out forwards;"
@@ -266,13 +270,13 @@ class HatcGaugeCard extends LitElement {
                 </svg>
             `;
 
-            if(percent > 100){
+            if (percent > 100) {
                 return html`
-                    <div class="maxValueExceeded">Il semble il y avoir un problème, Veuillez ajouter un max_value !</div>
+                    <div class="maxValueExceeded">There seems to be a problem, please add a min_value or max_value!</div>
                 `;
-            }else{
+            } else {
                 return html`
-                    <ha-card class="HatcGaugeCard">
+                    <ha-card class="HatcGaugeCardExt">
                         <div class="box" style="${c.height}" @click=${e => this._handlePopup(e)}>
                             <div class="header" style="${h.textalign}">
                                 ${hIconHTML}
@@ -294,9 +298,9 @@ class HatcGaugeCard extends LitElement {
                     </ha-card>
                 `;
             }
-        }else{
+        } else {
             return html`
-                <div class="not-found">l'entité "${this.config.entity}" n'à pas été trouvé.</div>
+                <div class="not-found">The entity "${this.config.entity}" was not found.</div>
             `;
         }
     }
@@ -305,7 +309,7 @@ class HatcGaugeCard extends LitElement {
     // will render an error card.
     setConfig(config) {
         if (!config.entity) {
-            throw new Error('Veuillez ajouter un "Entity" dans votre configuration');
+            throw new Error('Please add an "entity" in your configuration');
         }
         this.config = config;
     }
@@ -412,4 +416,4 @@ class HatcGaugeCard extends LitElement {
     }
 }
 
-customElements.define('hatc-gauge-card', HatcGaugeCard);
+customElements.define('hatc-gauge-card-ext', HatcGaugeCardExt);
