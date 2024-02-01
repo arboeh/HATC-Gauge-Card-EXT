@@ -180,7 +180,7 @@ class HatcGaugeCardExt extends LitElement {
                 g['friendlyname'] = (typeof hGauge['friendly_name'] !== 'undefined') ? hGauge['friendly_name'] : heTitle;
                 g['unitofmeasurement'] = (typeof hGauge['unit_of_measurement'] !== 'undefined') ? hGauge['unit_of_measurement'] : heUnitOfMeasurement;
                 g['maxvalue'] = (typeof hGauge['max_value'] !== 'undefined') ? hGauge['max_value'] : '100';
-                g['minvalue'] = (typeof hGauge['min_value'] !== 'undefined') ? hGauge['min_value'] : '0';
+                g['minvalue'] = (typeof hGauge['min_value'] !== 'undefined') ? hGauge['min_value'] : '-100';
 
                 g['state'] = (typeof hGauge['state'] !== 'undefined') ? hGauge['state'] : true;
                 console.log("heIcon", heIcon);
