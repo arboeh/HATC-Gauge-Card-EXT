@@ -22,7 +22,7 @@ Forked from [tagcashdevs hatc-gauge-card](https://github.com/tagcashdev/hatc-gau
 | type | String | **Yes** | - | `custom:hatc-gauge-card-ext` | - |
 | entity | String | **Yes** | - | `sensor.outside_temperature` | - |arboeh/hatc-gauge-card-ext
 | [card](https://github.com/arboeh/hatc-gauge-card-ext/#card-options) | Object | No | NULL | Height of the card, [view example](https://github.com/arboeh/hatc-gauge-card-ext/#default) | px |
-| [title](https://github.com/arboeh/hatc-gauge-card-ext/#title-options) | String/Object | No | \<ENTITY_ATTRIBUTE\>.friendly_name | Title of the card, [view example](https://github.com/arboeh/hatc-gauge-card-ext/#simple-card-title) | false, "", hide, String, Object, [view configuration](https://github.com/arboeh/hatc-gauge-card-ext/#title-options) |
+| [title](https://github.com/arboeh/hatc-gauge-card-ext/#title-options) | String/Object | No | \<ENTITY_ATTRIBUTE\> .friendly_name | Title of the card, [view example](https://github.com/arboeh/hatc-gauge-card-ext/#simple-card-title) | false, "", hide, String, Object, [view configuration](https://github.com/arboeh/hatc-gauge-card-ext/#title-options) |
 | [gauge](https://github.com/arboeh/hatc-gauge-card-ext/#gauge-options) | Object | No | - | Gauge configuration | - |
 
 #### Card Options
@@ -38,7 +38,7 @@ Forked from [tagcashdevs hatc-gauge-card](https://github.com/tagcashdev/hatc-gau
 | text-align | String | No | left | Title alignment | left, center, right |
 | font-size | String | No | 22px | Title font size | px, em |
 | text-color | String | No | var(--secondary-text-color) | Color of the card title, note that severity allows you to change the color of the text automatically according to the colors chosen in the severity option | severity, red, #ff0000, rgb(255,0,0), var(--color) |
-| icon | String | No | \<ENTITY_ATTRIBUTE\>.icon | Icon of the card title, note that severity allows you to change the icon automatically depending on the icons chosen in the severity option | false, mdi:xxx, severity |
+| icon | String | No | \<ENTITY_ATTRIBUTE\> .icon | Icon of the card title, note that severity allows you to change the icon automatically depending on the icons chosen in the severity option | false, mdi:xxx, severity |
 | icon-color | String | No | white | Color of the card title icon, note that severity allows you to change the color of the text automatically according to the colors chosen in the severity option | severity, red, #ff0000, rgb(255,0,0), var(--color) |
 
 #### Gauge Options
@@ -49,8 +49,8 @@ Forked from [tagcashdevs hatc-gauge-card](https://github.com/tagcashdev/hatc-gau
 | state | String | No | \<ENTITY\>.state | Allows you to modify the status value or hide the status in the gauge | false, String |
 | text-color | String | No | black | Allows you to change the color of the text inside the gauge circle, note that severity allows you to change the color of the text automatically according to the colors chosen in the severity option | severity, red, #ff0000, rgb(255,0,0), var(--color) |
 | font-size | String | No | 22px | Gauge state text size | px, em |
-| unit_of_measurement | String | No | \<ENTITY_ATTRIBUTE\>.unit_of_measurement | Allows you to change the unit value or hide the unit in the gauge | false, String |
-| icon | String | No | \<ENTITY_ATTRIBUTE\>.icon | Gauge icon, note that severity allows you to change the icon automatically depending on the icons chosen in the severity option | false, mdi:xxx, severity |
+| unit_of_measurement | String | No | \<ENTITY_ATTRIBUTE\> .unit_of_measurement | Allows you to change the unit value or hide the unit in the gauge | false, String |
+| icon | String | No | \<ENTITY_ATTRIBUTE\> .icon | Gauge icon, note that severity allows you to change the icon automatically depending on the icons chosen in the severity option | false, mdi:xxx, severity |
 | icon-color | String | No | white | Color of the gauge icon, note that severity allows you to change the color of the text automatically according to the colors chosen in the severity option | severity, red, #ff0000, rgb(255,0,0), var(--color) |
 | icon-size | String | No | 22px | Gauge icon size | px, em |
 | [severity](https://github.com/arboeh/hatc-gauge-card-ext/#severity-options) | Object | No | - | Configuration severity | - |
@@ -136,7 +136,7 @@ Solution n°1
 
 ```yaml
 type: custom:hatc-gauge-card
-entity: sensor.temperature_moyenne_hall_d_entree
+entity: sensor.temperature_outside
 title:
   name: false
   icon: false
@@ -146,7 +146,7 @@ Solution n°2
 
 ```yaml
 type: custom:hatc-gauge-card
-entity: sensor.temperature_moyenne_hall_d_entree
+entity: sensor.temperature_outside
 title: false
 ```
 ![Title options](https://github.com/arboeh/hatc-gauge-card-ext/blob/main/img/cacher-titre.png)
