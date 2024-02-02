@@ -251,7 +251,9 @@ class HatcGaugeCardExt extends LitElement {
                 "heTextStateColor": heTextStateColor,
             }
 
-            var hIconHTML = (hE.heIcon !== '' && hE.heIcon !== false && hE.heIcon !== 'hide') ? html`<ha-icon style="${h.fontsize} color:${h.iconcolor};" .icon="${hE.heIcon}"></ha-icon>` : '';
+            var hIconHTML = (hE.heIcon !== '' && hE.heIcon !== false && hE.heIcon !== 'hide') ? html`
+                <ha-icon style="${h.fontsize} color:${h.iconcolor};" .icon="${hE.heIcon}" @click=${e => this._handleEntities(e, entity)}></ha-icon>
+            ` : '';
             var hNameHTML = (h.name !== '' && h.name !== false && h.name !== 'hide') ? html`<div style="${h.fontsize} color:${h.color};" class="name">${h.name}</div>` : '';
             var hEntitiesHeight = (h.name !== '' && h.name !== false && h.name !== 'hide') ? 'calc(100% - 40px)' : '100%';
             var gStateHTML = (g.state !== '' && g.state !== false && g.state !== 'hide') ? html`${hE.heState}&nbsp;${hE.heUnitOfMeasurement}` : '';
